@@ -37,7 +37,9 @@ train_step=tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy)
 init=tf.global_variables_initializer();
 
 # Start our graph
-sess=tf.Session()
+gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.333) # Limit the usage of GPU
+sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+#sess=tf.Session()
 sess.run(init)
 
 # Train 1000 times. Each time select an arbitrary set for training.
