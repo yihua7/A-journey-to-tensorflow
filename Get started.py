@@ -43,7 +43,7 @@ sess.run(init)
 # Train 1000 times. Each time select an arbitrary set for training.
 for i in range(1000):
     batch_xs,batch_ys=mnist.train.next_batch(100)
-    sess.run(train_step,feed_dict={x:batch_xs,y:batch_ys})
+    sess.run(train_step,feed_dict={x:batch_xs,y_:batch_ys})
 
 # Assessing the property of our model.
 correct_prediction=tf.equal(tf.argmax(y,1),tf.argmax(y_,1)) # Return a bool vector.
