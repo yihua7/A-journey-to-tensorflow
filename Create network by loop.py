@@ -23,7 +23,7 @@ in_dimension=layer_dimension[0]
 # Using a loop to create neutral network.
 for i in range(1,n_layers):
     out_dimension=layer_dimension[i]
-    weight=get_weight([indimension,out_dimension],0.001)
+    weight=get_weight([in_dimension,out_dimension],0.001)
     bias=tf.Variable(tf.constant(0.1,shape=[out_dimension]))
     cur_layer=tf.nn.relu(tf.matmul(cur_layer,weight)+bias)
     in_dimension=layer_dimension[i]
