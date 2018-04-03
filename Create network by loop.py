@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-def get_veight(shape,lam):
+def get_weight(shape,lam):
     # Declare a variable as weight.
     var=tf.Variable(tf.truncated_normal(shape=shape,stddev=0.1),dtype=tf.float32)
     # Add the regularization loss to the collection 'losses'.
