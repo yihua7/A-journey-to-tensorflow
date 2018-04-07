@@ -5,7 +5,7 @@ mnist=input_data.read_data_sets("MNIST_data",one_hot=True)
 
 def get_weight(shape,lam):
     # Declare a variable as weight.
-    var=tf.Variable(tf.truncated_normal(shape=shape,stddev=0.1),dtype=tf.float32)
+    var=tf.Variable(tf.truncated_normal(shape=shape,stddev=0.1))
     # Add the regularization loss to the collection 'losses'.
     tf.add_to_collection('losses',tf.contrib.layers.l2_regularizer(lam)(var))
     return var
@@ -22,16 +22,16 @@ dimension=[1,32,64]
 
 # Using a loop to create neutral network.
 for i in range(1,2):
-    weight=get_weight([dimension[i-1],5,5,dimension[i]],0.001)
-    bias=tf.Variable(tf.constant(dimension[i]))
+    weight=get_weight([5,5,dimension[i-1],dimension[i]],0.001)
+    bias=tf.Variable(tf.constant(0.1,shape=[dimension[i]]))
     cur_layer=tf.nn.relu(tf.nn.max_pool(tf.nn.conv2d(cur_layer,weight,strides=[1,1,1,1],padding='SAME')+bias,ksize=[1,2,2,1],strides=[1,2,2,1],padding='SAME'))
 
-cur_layer=tf.reshape(cur_layer,[None,7*7*64])
+cur_layer=tf.reshape(tf.cast(cur_layer,),[None,7*7*64])
 di=[7*7*64,1024,10]
 
 for i in range(1,2):
     weight=get_weight([di[i-1],di[i]],0.001)
-    bias=tf.Variable(tf.constant(di[i]))
+    bias=tf.Variable(tf.constant(0.1,shape=di[i]))
     cur_layer=tf.nn.relu(tf.matmul(cur_layer,weight)+bias)
 
 y=tf.nn.softmax(cur_layer)
